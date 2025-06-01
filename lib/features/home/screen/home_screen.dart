@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         children: [
           // Image Slider Banner
-          const ImageSlider(),
+          ImageSlider(),
 
           const SizedBox(height: 20),
 

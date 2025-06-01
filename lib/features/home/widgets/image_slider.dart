@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tanvir_ahmed_robin/features/home/controller/home_screen_controller.dart';
 
-class ImageSlider extends StatefulWidget {
-  const ImageSlider({Key? key}) : super(key: key);
+class ImageSlider extends StatelessWidget {
+  ImageSlider({Key? key}) : super(key: key);
 
-  @override
-  State<ImageSlider> createState() => _ImageSliderState();
-}
-
-class _ImageSliderState extends State<ImageSlider> {
-  final PageController _pageController = PageController();
-  int _currentIndex = 0;
-
-  final List<String> _images = [
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/home.jpg-5CejkTcSxNmhSFs0vKjQgS1NVWGW2z.jpeg', // Using the provided image
-    'https://via.placeholder.com/400x250/4CAF50/FFFFFF?text=Slide+2',
-    'https://via.placeholder.com/400x250/2196F3/FFFFFF?text=Slide+3',
-  ];
+  final HomeScreenController controller = Get.put(HomeScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +27,14 @@ class _ImageSliderState extends State<ImageSlider> {
         child: Stack(
           children: [
             PageView.builder(
-              controller: _pageController,
+              controller: controller.pageController,
+              itemCount: controller.images.length,
               onPageChanged: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
+                controller.currentIndex.value = index;
               },
-              itemCount: _images.length,
               itemBuilder: (context, index) {
                 return Image.network(
-                  _images[index],
+                  controller.images[index],
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
@@ -69,32 +57,26 @@ class _ImageSliderState extends State<ImageSlider> {
               bottom: 10,
               left: 0,
               right: 0,
-              child: Row(
+              child: Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: _images.asMap().entries.map((entry) {
+                children: controller.images.asMap().entries.map((entry) {
                   return Container(
                     width: 8,
                     height: 8,
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _currentIndex == entry.key
+                      color: controller.currentIndex.value == entry.key
                           ? Colors.white
                           : Colors.white.withOpacity(0.5),
                     ),
                   );
                 }).toList(),
-              ),
+              )),
             ),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }
