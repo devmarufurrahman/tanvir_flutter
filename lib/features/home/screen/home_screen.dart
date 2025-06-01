@@ -65,17 +65,27 @@ class HomeScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('হোম'),
+            title: const Text('মূলপাতা'),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('প্রোফাইল'),
+            title: const Text('আমার সম্পর্কে'),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('সেটিংস'),
+            title: const Text('যোগাযোগ করুন'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('আপনার অভিযোগ ও পরামর্শ জানান'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('বিএনপি তে যোগদিন'),
             onTap: () {},
           ),
         ],
